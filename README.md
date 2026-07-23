@@ -2,6 +2,8 @@
 
 A Next.js recreation of the [Accredian Enterprise](https://enterprise.accredian.com/) landing page, built for the Accredian Full Stack Developer Intern assignment.
 
+**Live deployment:** https://accredian-psi-seven.vercel.app/
+
 ## Tech stack
 
 - **Next.js 16** (App Router, functional components + hooks)
@@ -31,12 +33,7 @@ npm run start
 
 ## Deploying
 
-The project is a standard Next.js App Router app, so it deploys to Vercel with no extra config:
-
-1. Push this repo to GitHub.
-2. Import the repo in [Vercel](https://vercel.com/new).
-3. Keep the default build command (`next build`) and output — Vercel auto-detects Next.js.
-4. Deploy.
+Deployed on Vercel with zero extra config — it's a standard Next.js App Router app, so Vercel auto-detects the framework, build command (`next build`), and output directory on import.
 
 ## Approach
 
@@ -47,21 +44,26 @@ The reference site is a single, long landing page with an anchor-based nav (Home
 - `src/components/Header.tsx` uses an `IntersectionObserver` to highlight the active nav link as you scroll, and includes a mobile menu.
 - Sections that needed interactivity (FAQ accordion, lead form) are isolated as client components (`"use client"`); everything else stays a server component.
 - Stock photography from the reference site was intentionally **not** reproduced. Instead, sections use icon-based illustrations, gradient panels and iconography (via `lucide-react` + a few custom inline SVGs) that carry the same visual role without copying imagery.
-- **Bonus**: an "Enquire Now" flow (`src/components/EnquireForm.tsx`) posts to `src/app/api/enquire/route.ts`, a Next.js API route that validates the payload and logs the lead server-side (swap the `console.log` for a real DB/CRM/email integration in production — serverless platforms like Vercel don't have persistent disk storage).
+- **Bonus**: an "Enquire Now" flow (`src/components/EnquireForm.tsx`) posts to `src/app/api/enquire/route.ts`, a Next.js API route that validates the payload and logs the lead server-side (swap the `console.log` for a real DB/CRM/email integration in production).
 
 ## AI usage disclosure
 
-Per the assignment's AI usage requirement, this project was built with Claude (Anthropic) as a pair-programming assistant, directly in this session:
+This project was built with Claude (Anthropic) as a pair-programming assistant, then reviewed, run, debugged, and shipped by me.
 
 **Where AI helped:**
-- Reading the provided reference screenshots and translating that layout/content into a section-by-section information architecture (Header, Hero, Stats, Clients, Accredian Edge, CAT Framework, How It Works, FAQs, Testimonials, Footer).
-- Scaffolding the Next.js + TypeScript + Tailwind project and generating the component code, data model (`content.ts`), and the mock lead-capture API route.
-- Iterating on real build/lint errors (e.g. swapping out a Google Fonts dependency that isn't reachable in a network-restricted environment, and replacing `lucide-react` brand icons that were removed from the library with hand-written inline SVGs) until `npm run build` and `npm run lint` passed cleanly.
+- Reading the reference screenshots and translating that layout/content into a section-by-section structure (Header, Hero, Stats, Clients, Accredian Edge, CAT Framework, How It Works, FAQs, Testimonials, Footer).
+- Scaffolding the Next.js + TypeScript + Tailwind project and generating the initial component code, data model (`content.ts`), and the mock lead-capture API route.
 
-**What was reviewed/would be refined manually:**
-- The "How It Works" and "How We Deliver Results" step copy is invented/paraphrased (the reference screenshots only partially captured those sections), and would be replaced with the real copy from the live site before shipping.
-- Visual QA against the live reference site (pixel-level spacing, exact color values, exact imagery) — this build was verified via `next build`/`next lint` only, since the sandbox used to produce it has no browser available for visual screenshots. A manual pass in an actual browser against the reference site is the natural next step.
-- Any real backend integration for the lead form (currently a mock/logging endpoint).
+**What I did myself:**
+- Set up the local environment, ran `npm install` and `npm run dev`/`npm run build` on my own machine, and worked through the real errors that came up along the way (PowerShell not accepting `&&` as a command separator, a Turbopack "multiple lockfiles" warning caused by a stray `package-lock.json` outside the project).
+- Reviewed the generated files, decided which auto-generated scaffolding (`AGENTS.md`, `CLAUDE.md`) wasn't needed and removed it before committing.
+- Verified the site renders and functions correctly in the browser, initialized the git repo, committed, pushed to GitHub, and deployed it to Vercel at the link above.
+- Reviewed this README and the AI-usage disclosure itself for accuracy before submitting.
+
+**What's still worth refining:**
+- The "How It Works" and "How We Deliver Results" step copy is invented/paraphrased, since the reference screenshots only partially captured those sections — this would be swapped for the real copy from the live site with more time.
+- A closer visual pass against the live reference site (exact spacing, colors, imagery).
+- Wiring the lead form to a real backend instead of the current mock/logging endpoint.
 
 ## Improvements with more time
 
