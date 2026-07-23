@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 type EnquiryPayload = {
   name: string;
   email: string;
+  phone: string;
   company: string;
   teamSize: string;
   message?: string;
@@ -28,9 +29,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { name, email, company, teamSize, message } = payload;
+  const { name, email, phone, company, teamSize, message } = payload;
+  if (!name?.trim() || !email?.trim() || !phone?.trim() || !company?.trim() || !teamSize?.trim()) {
 
-  if (!name?.trim() || !email?.trim() || !company?.trim() || !teamSize?.trim()) {
     return NextResponse.json(
       { success: false, error: "Please fill in all required fields." },
       { status: 400 }
@@ -49,6 +50,7 @@ export async function POST(request: NextRequest) {
   console.log("New enterprise enquiry received:", {
     name: name.trim(),
     email: email.trim(),
+     phone: phone.trim(),
     company: company.trim(),
     teamSize: teamSize.trim(),
     message: message?.trim() || null,

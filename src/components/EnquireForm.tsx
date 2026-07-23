@@ -19,6 +19,7 @@ export default function EnquireForm() {
     const payload = {
       name: String(formData.get("name") || ""),
       email: String(formData.get("email") || ""),
+      phone: String(formData.get("phone") || ""),
       company: String(formData.get("company") || ""),
       teamSize: String(formData.get("teamSize") || ""),
       message: String(formData.get("message") || ""),
@@ -120,6 +121,20 @@ export default function EnquireForm() {
                 required
                 className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-blue"
                 placeholder="Company name"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-brand-ink">
+                Phone number
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-blue"
+                placeholder="+91 98765 43210"
               />
             </div>
 
